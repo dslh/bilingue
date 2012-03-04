@@ -1,0 +1,31 @@
+// Place all the styles related to the Phrases controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+ul#phrases {
+  display: inline-block;
+  border-top-left-radius: 1em;
+  -moz-border-radius-topleft: 1em;
+  -webkit-border-top-left-radius: 1em;
+  border: solid #E0E5EF;
+  border-width: 1pt 0 0 1pt;
+  padding: 0.8em;
+  margin: 1em;
+  list-style-type: none;
+  background-color: #6AC;
+  box-shadow: 1em 1em 2em -1em white inset;
+
+  .native {
+    padding: 0.3em;
+    border-bottom: solid 1px #7BD;
+  }
+
+  ul.translations {
+    list-style-type: none;
+    border-top: dashed 1px #E0E5EF;
+    box-shadow: 0em 1em 2em -1.8em black inset;
+
+    li.translation { padding: 0.2em }
+  }
+}
+
+

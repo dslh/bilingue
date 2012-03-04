@@ -1,0 +1,14 @@
+%li.phrase
+  .native= phrase.phrase
+  %ul.translations
+    - phrase.translations.each do |t|
+      = render :partial => 'phrases/translation_listing',
+               :locals => { :translation => t }
+    = form_tag phrase_translations_path(phrase),
+          :remote => true,
+          :class => 'translation_form' do
+      - l_id = phrase.language.id == 1 ? 2 : 1 # Dirty dirty hack
+      = hidden_field_tag 'translation[language_id]', l_id
+      = text_field_tag 'translation[phrase]', '',
+            :placeholder => 'new translation'
+      %button= '+'

@@ -1,0 +1,5 @@
+%h1= 'Languages'
+
+%ul
+  - Language.all.each do |l|
+    %li= link_to l.name, l

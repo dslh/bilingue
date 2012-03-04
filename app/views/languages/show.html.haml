@@ -1,0 +1,14 @@
+%h1=@language.name
+
+#errors
+
+%ul#phrases
+  - @language.phrases.each do |phrase|
+    = render 'phrases/listing', :phrase => phrase
+  %li.add_phrase
+    = form_tag phrases_path,
+          :remote => true,
+          :class => 'phrase_form' do
+      = hidden_field_tag 'phrase[language_id]', @language.id
+      = text_field_tag 'phrase[phrase]', '', :placeholder => 'new phrase'
+      %button= '+'

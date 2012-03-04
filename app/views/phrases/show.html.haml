@@ -1,0 +1,20 @@
+%p.notice=notice
+
+%p
+  %b Phrase:
+  = @phrase.phrase
+
+%p
+  %b Language:
+  = @phrase.language.name
+
+%p
+  %b Translations:
+  %ul
+    - @phrase.translations.each do |t|
+      %li
+        = t.phrase
+        = link_to 'Show', phrase_translation_path(t)
+
+= link_to 'Edit', edit_phrase_path(@phrase)
+= link_to 'Back', phrases_path
