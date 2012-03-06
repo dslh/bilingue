@@ -41,6 +41,7 @@ class PhrasesController < ApplicationController
   # POST /phrases.json
   def create
     @phrase = Phrase.new(params[:phrase])
+    @phrase.set_tags params[:tags]
 
     respond_to do |format|
       if @phrase.save
@@ -59,6 +60,7 @@ class PhrasesController < ApplicationController
   # PUT /phrases/1.json
   def update
     @phrase = Phrase.find(params[:id])
+    @phrase.set_tags params[:tags]
 
     respond_to do |format|
       if @phrase.update_attributes(params[:phrase])
@@ -80,6 +82,7 @@ class PhrasesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to phrases_url }
       format.json { head :no_content }
+      format.js {head :no_content }
     end
   end
 end
