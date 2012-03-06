@@ -1,5 +1,10 @@
-%li.phrase
+%li.phrase{:data => { :tags => phrase.tag_names }}
   .native= phrase.phrase
+  .icons
+    - if phrase.translations.empty?
+      %img.note{ :src => '/assets/note.gif', :title => 'No translations!' }
+    = link_to phrase, method: :delete, remote: :true do
+      %img.delete{ :src => '/assets/close.gif' }
   %ul.translations
     - phrase.translations.each do |t|
       = render :partial => 'phrases/translation_listing',
@@ -11,4 +16,5 @@
       = hidden_field_tag 'translation[language_id]', l_id
       = text_field_tag 'translation[phrase]', '',
             :placeholder => 'new translation'
-      %button= '+'
+      %button
+        %img{ :src => '/assets/add.gif' }

@@ -16,5 +16,13 @@
         = t.phrase
         = link_to 'Show', phrase_translation_path(t)
 
+%p
+  %b Tags:
+  %ul
+    - @phrase.tags.each do |t|
+      %li
+        = t.name
+        = link_to 'Show', tag_path(t)
+
 = link_to 'Edit', edit_phrase_path(@phrase)
 = link_to 'Back', phrases_path

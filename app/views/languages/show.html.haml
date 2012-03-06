@@ -11,4 +11,7 @@
           :class => 'phrase_form' do
       = hidden_field_tag 'phrase[language_id]', @language.id
       = text_field_tag 'phrase[phrase]', '', :placeholder => 'new phrase'
-      %button= '+'
+      %button
+        %img{ :src => '/assets/add.gif' }
+
+= render 'tags/list'
