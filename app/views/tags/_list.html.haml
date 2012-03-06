@@ -1,0 +1,7 @@
+#tags
+  - Tag.all.each do |t|
+    = render 'tags/listing', :tag => t
+  = form_tag tags_path,
+        :remote => true,
+        :class => 'new_tag' do
+    = text_field_tag 'tag[name]', '', :placeholder => 'new tag'

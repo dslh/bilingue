@@ -1,0 +1,6 @@
+- tag_id = "tag_#{tag.id}_check"
+%form.tag
+  %input{ :type => 'checkbox', :name => tag_id,
+          :id => tag_id, :value => tag.name }
+  %label{ :for => tag_id }
+    = tag.name

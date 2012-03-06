@@ -46,9 +46,11 @@ class TagsController < ApplicationController
       if @tag.save
         format.html { redirect_to @tag, notice: 'Tag was successfully created.' }
         format.json { render json: @tag, status: :created, location: @tag }
+        format.js { render :partial => 'listing', :content_type => 'text/html', :locals => { :tag => @tag } }
       else
         format.html { render action: "new" }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
+        format.js { render 'common/errors', :locals => { :errors => @tag.errors } }
       end
     end
   end
