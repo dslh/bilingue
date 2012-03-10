@@ -9,9 +9,24 @@ ul#phrases {
     padding: 0.3em;
     padding-right: 2em;
     border-bottom: solid 1px #7BD;
+
+    form {
+      display: none;
+    }
+
+    &.edit {
+      span {
+        display: none;
+      }
+
+      form {
+        display: inline-block;
+      }
+    }
   }
 
   .phrase {
+    display: block;
     position: relative;
 
     transition: background-color 300ms, box-shadow 300ms;
@@ -31,12 +46,46 @@ ul#phrases {
     right: 0px;
   }
 
+  .translation,.phrase {
+    span {
+      cursor: pointer;
+      cursor: hand;
+      border-radius: 1em;
+      padding-right: 0.4em;
+
+      transition: box-shadow 300ms;
+      -moz-transition: box-shadow 300ms;
+      -webkit-transition: box-shadow 300ms;
+      -o-transition: box-shadow 300ms;
+
+      &:hover {
+       box-shadow: 0.3em 0.3em 0.5em 0em #AAF;
+      }
+    }
+  }
+
   ul.translations {
     list-style-type: none;
     border-top: dashed 1px #AAF;
     box-shadow: 0em 1em 2em -1.8em black inset;
 
-    li.translation { padding: 0.2em }
+    li.translation {
+      padding: 0.2em;
+
+      form {
+        display: none;
+      }
+
+      &.edit {
+        span {
+          display: none;
+        }
+
+        form {
+          display: inline-block;
+        }
+      }
+    }
   }
 }
 

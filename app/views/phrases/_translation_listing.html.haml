@@ -1,1 +1,4 @@
-%li.translation= translation.phrase
+%li.translation
+  %span= translation.phrase
+  = form_tag phrase_path(translation), method: 'put', :remote => true do
+    = text_field_tag 'phrase[phrase]', translation.phrase

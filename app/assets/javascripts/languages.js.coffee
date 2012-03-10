@@ -1,8 +1,12 @@
 $ ->
   hide_translations $('#phrases')
-  sliding_translations $('#phrases .phrase')
+  animate_phrases $('#phrases')
   animate_new_phrases()
-  animate_new_translations()
+
+animate_phrases = (e) ->
+  sliding_translations $('.phrase',e)
+  animate_new_translations(e)
+  editable_phrases (e)
 
 animate_new_phrases = ->
   $('.add_phrase input').keypress(
@@ -13,11 +17,10 @@ animate_new_phrases = ->
       dom = $(data)
       $('#phrases .add_phrase').before(dom)
       dom.hide().show(300)
-      sliding_translations(dom)
-      animate_new_translations(dom)
+      animate_phrases(dom)
       $('input[type=text]',this).val('')
       $('input',dom).focus()
-  )
+  ).disable_during_ajax()
 
 animate_new_translations = (e) ->
   $('.translations input',e).keypress(
@@ -29,7 +32,7 @@ animate_new_translations = (e) ->
       p.hide(300, -> p.detach())
     )
   )
-  $('.translations form', e).on('ajax:success',
+  $('.translations .new_translation', e).on('ajax:success',
     (evt, data, xhr) ->
       dom = $(data)
       $(this).before(dom)
@@ -37,7 +40,7 @@ animate_new_translations = (e) ->
       $('input[type=text]',this).val('')
       $('.note',$(this).parent().parent()).detach()
       $('#phrases .add_phrase input').focus()
-  )
+  ).disable_during_ajax()
 
 as_jq = (e) -> $(e.currentTarget || e)
 translations_of = (e) -> $('.translations',as_jq(e))
@@ -62,3 +65,18 @@ sliding_translations = (e) ->
     as_jq(e).removeClass('open')
   )
 
+editable_phrases = (e) ->
+  $('.native,.translation',e).each( ->
+    phrase = $(this)
+    phrase.click( ->
+      $(this).addClass('edit')
+      $('input[type=text]',this).focus()
+    ).children('input[type=text]').blur( ->
+      phrase.removeClass('edit')
+    )
+
+    phrase.children('form').on('ajax:success', ->
+      phrase.removeClass('edit')
+      $('span',phrase).text($('input[type=text]',this).val())
+    ).disable_during_ajax()
+  )

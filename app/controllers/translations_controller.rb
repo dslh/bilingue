@@ -13,7 +13,6 @@ class TranslationsController < ApplicationController
   # GET /phrases/1/translations/2
   # GET /phrases/1/translations/2.json
   def show
-    puts params.inspect
     @phrase = Phrase.find(params[:phrase_id]).translations.find(params[:id])
 
     respond_to do |format|

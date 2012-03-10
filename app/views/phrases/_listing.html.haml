@@ -1,5 +1,8 @@
 %li.phrase{:data => { :tags => phrase.tag_names }}
-  .native= phrase.phrase
+  .native
+    %span= phrase.phrase
+    = form_tag phrase_path(phrase), method: 'put', :remote => true do
+      = text_field_tag 'phrase[phrase]', phrase.phrase
   .icons
     - if phrase.translations.empty?
       %img.note{ :src => '/assets/note.gif', :title => 'No translations!' }
@@ -11,7 +14,7 @@
                :locals => { :translation => t }
     = form_tag phrase_translations_path(phrase),
           :remote => true,
-          :class => 'translation_form' do
+          :class => 'new_translation' do
       - l_id = phrase.language.id == 1 ? 2 : 1 # Dirty dirty hack
       = hidden_field_tag 'translation[language_id]', l_id
       = text_field_tag 'translation[phrase]', '',
