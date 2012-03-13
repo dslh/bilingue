@@ -32,6 +32,11 @@ gem 'jquery-rails'
 
 gem 'capybara'
 
+
+# Tagging library
+# https://github.com/bradphelan/rocket_tag
+gem 'rocket_tag'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
