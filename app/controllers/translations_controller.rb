@@ -26,7 +26,7 @@ class TranslationsController < ApplicationController
   def create
     @phrase = Phrase.find(params[:phrase_id])
     @translation = @phrase.translations.create(params[:translation])
-    @translation.set_tags params[:tags]
+    @translation.categories = params[:tags]
 
     respond_to do |format|
       if @translation.save
