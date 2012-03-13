@@ -1,5 +1,5 @@
 #tags
-  - Tag.all.each do |t|
+  - RocketTag::Tag.all.each do |t|
     = render 'tags/listing', :tag => t
   = form_tag tags_path,
         :remote => true,

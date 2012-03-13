@@ -1,4 +1,4 @@
-%li.phrase{:data => { :tags => phrase.tag_names }}
+%li.phrase{:data => { :tags => phrase.categories }}
   .native
     %span= phrase.phrase
     = form_tag phrase_path(phrase), method: 'put', :remote => true do

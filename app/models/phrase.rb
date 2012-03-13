@@ -2,28 +2,12 @@ class Phrase < ActiveRecord::Base
   belongs_to :language
   validates :phrase, :language, :presence => true
 
-  has_and_belongs_to_many :tags
+  attr_taggable :categories
 
   has_many :transforms
   has_many :transformations, :through => :transforms, :source => :transformation
   has_many :inverse_transforms, :class_name => "Transform", :foreign_key => "transformation_id"
   has_many :inverse_transformations, :through => :inverse_transforms, :source => :phrase
-
-  # Set the tags for this phrase.
-  # Takes an array of strings.
-  def set_tags tag_names
-    tags.clear
-    return unless tag_names
-    tags << tag_names.collect do |name|
-      Tag.where(:name => name)
-    end.flatten
-  end
-
-  # Returns a comma separated list
-  # of tags for this phrase.
-  def tag_names
-    tags.collect { |t| t.name }.join(',')
-  end
 
   class CompositeCollection
     include Enumerable
