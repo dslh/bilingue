@@ -1,9 +1,13 @@
 LearnFrench::Application.routes.draw do
-  resources :tags
+  root :to => 'quizzes#new'
+
+  match 'quizzes/new' => 'quizzes#new'
+  match 'quizzes/language/:language/:tags(/:length)' => 'quizzes#show'
 
   resources :phrases do
     resources :translations
   end
+
   resources :languages
 
   # The priority is based upon order of creation:
