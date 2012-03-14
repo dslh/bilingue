@@ -1,83 +1,23 @@
 class QuizzesController < ApplicationController
-  # GET /quizzes
-  # GET /quizzes.json
-  def index
-    @quizzes = Quiz.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @quizzes }
-    end
-  end
-
-  # GET /quizzes/1
-  # GET /quizzes/1.json
+  # GET /quizzes/tag+tag2/20
   def show
-    @quiz = Quiz.find(params[:id])
+    @tags = params[:tags].split('+')
+    @language = Language.find(params[:language])
+    @phrases = @language.phrases.tagged_with(@tags)
+    length = [params[:length].to_i || 10, @phrases.length].min
+    @phrases = @phrases.shuffle[0...length]
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @quiz }
+      format.html { render 'quiz' }
     end
   end
 
   # GET /quizzes/new
-  # GET /quizzes/new.json
   def new
-    @quiz = Quiz.new
+    @tags = RocketTag::Tag.all
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @quiz }
-    end
-  end
-
-  # GET /quizzes/1/edit
-  def edit
-    @quiz = Quiz.find(params[:id])
-  end
-
-  # POST /quizzes
-  # POST /quizzes.json
-  def create
-    @quiz = Quiz.new(params[:quiz])
-
-    respond_to do |format|
-      if @quiz.save
-        format.html { redirect_to @quiz, notice: 'Quiz was successfully created.' }
-        format.json { render json: @quiz, status: :created, location: @quiz }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @quiz.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /quizzes/1
-  # PUT /quizzes/1.json
-  def update
-    @quiz = Quiz.find(params[:id])
-
-    respond_to do |format|
-      if @quiz.update_attributes(params[:quiz])
-        format.html { redirect_to @quiz, notice: 'Quiz was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @quiz.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /quizzes/1
-  # DELETE /quizzes/1.json
-  def destroy
-    @quiz = Quiz.find(params[:id])
-    @quiz.destroy
-
-    respond_to do |format|
-      format.html { redirect_to quizzes_url }
-      format.json { head :no_content }
+      format.html { render 'new' }
     end
   end
 end

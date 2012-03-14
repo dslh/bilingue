@@ -1,0 +1,7 @@
+- questions = @phrases.collect { |p| p.to_question_js }
+%meta#questions{ :data => { :questions => questions.to_json } }
+#historyScroll
+  #history
+#score
+#question
+%input#answer{ :type => :text }

@@ -1,0 +1,24 @@
+#historyScroll {
+  width: 300px;
+  height: 300px;
+  overflow: auto;
+}
+#history {
+  dt {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  dd {
+    margin: 0 0 0 1em;
+
+    &.wrong {
+      text-decoration: line-through;
+      color: #E00;
+    }
+
+    &.right {
+      color: #0D0;
+    }
+  }
+}
