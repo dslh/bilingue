@@ -9,6 +9,18 @@ class Phrase < ActiveRecord::Base
   has_many :inverse_transforms, :class_name => "Transform", :foreign_key => "transformation_id"
   has_many :inverse_transformations, :through => :inverse_transforms, :source => :phrase
 
+  def to_question_js tags = nil
+    answers = tags ?
+            translations.tagged_with(tags) :
+            translations
+    [
+      phrase,
+      translations.length == 1 ?
+        translations.first.phrase :
+        translations.collect { |t| t.phrase }
+    ]
+  end
+
   class CompositeCollection
     include Enumerable
 
