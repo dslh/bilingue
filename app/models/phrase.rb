@@ -9,6 +9,10 @@ class Phrase < ActiveRecord::Base
   has_many :inverse_transforms, :class_name => "Transform", :foreign_key => "transformation_id"
   has_many :inverse_transformations, :through => :inverse_transforms, :source => :phrase
 
+  # Returns this phrase as a structure optimized
+  # for dense packing as JSON. An array with two
+  # values, the first being the phrase and the
+  # second one a list of translations.
   def to_question_js tags = nil
     answers = tags ?
             translations.tagged_with(tags) :
