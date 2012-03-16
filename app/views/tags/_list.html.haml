@@ -3,6 +3,5 @@
     = render 'tags/listing', :tag => t
   - if form then
     = form_tag '/tags',
-          :remote => true,
           :class => 'new_tag' do
       = text_field_tag 'tag[name]', '', :placeholder => 'new tag'
