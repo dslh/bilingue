@@ -1,7 +1,4 @@
 LearnFrench::Application.configure do
-  # Tidying up a noisy deprecation warning on heroku's servers
-  ::ActiveSupport::Deprecation.silenced = true
-
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
