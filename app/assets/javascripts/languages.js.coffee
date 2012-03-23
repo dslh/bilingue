@@ -1,12 +1,12 @@
 $ ->
-  hide_translations $('#phrases')
-  animate_phrases $('#phrases')
+  hide_translations()
+  animate_phrases $('#phrases .phrase')
   animate_new_phrases()
 
 animate_phrases = (e) ->
-  sliding_translations $('.phrase',e)
+  sliding_translations(e)
   animate_new_translations(e)
-  editable_phrases (e)
+  editable_phrases(e)
 
 animate_new_phrases = ->
   $('.add_phrase input').keypress(
@@ -15,6 +15,7 @@ animate_new_phrases = ->
   $('#phrases .add_phrase form').on('ajax:success',
     (evt, data, xhr) ->
       dom = $(data)
+      hide_translations()
       $('#phrases .add_phrase').before(dom)
       dom.hide().show(300)
       animate_phrases(dom)
@@ -46,8 +47,8 @@ as_jq = (e) -> $(e.currentTarget || e)
 translations_of = (e) -> $('.translations',as_jq(e))
 delete_button = (e) -> $('.delete',as_jq(e))
 
-hide_translations = (e) ->
-  translations_of(e).hide()
+hide_translations = ->
+  translations_of($('#phrases')).hide()
 
 sliding_translations = (e) ->
   delete_button(e).hide()
@@ -60,7 +61,7 @@ sliding_translations = (e) ->
       $(this).attr('style','display:none')
     )
     delete_button(e).stop(true).fadeOut(300, ->
-      $(this).attr('style','display:none')  
+      $(this).attr('style','display:none')
     )
     as_jq(e).removeClass('open')
   )
