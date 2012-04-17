@@ -5,6 +5,9 @@ $.ajaxPrefilter((opts, originalOpts, xhr) ->
 )
 
 $ ->
+  filter_phrases() unless $('#phrases').length == 0
+
+filter_phrases = ->
   show_and_hide_phrases $('#tags')
   $('#tags form.new_tag').on('ajax:success',
     (evt, data, xhr) ->
@@ -35,9 +38,6 @@ $ ->
     $(this).before(new_tag)
     show_and_hide_phrases(new_tag.hide().show(300))
   )
-
-checked_tags = ->
-  $('#tags .tag input[type=checkbox]:checked').map(-> $(this).val())
 
 set_phrase_visibility = (tags) ->
   $('.phrase').each( ->

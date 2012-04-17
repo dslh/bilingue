@@ -1,1 +1,9 @@
-= render 'tags/list', :form => false
+#quiz_setup
+  = render 'tags/list', :form => false
+  .question_count
+    Questions:
+    =select("quiz","questions", [10,25,50].collect { |n| [n,n] })
+  .quiz_language
+    Language:
+    =select("quiz","language", Language.all.collect { |l| [l.name,l.id] })
+  %a#quiz_link Select some categories from the list on the left.

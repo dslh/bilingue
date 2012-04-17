@@ -16,7 +16,7 @@ animate_new_phrases = ->
     (evt, data, xhr) ->
       dom = $(data)
       hide_translations()
-      $('#phrases .add_phrase').before(dom)
+      $('#phrases .add_phrase').after(dom)
       dom.hide().show(300)
       animate_phrases(dom)
       $('input[type=text]',this).val('')

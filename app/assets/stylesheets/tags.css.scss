@@ -1,12 +1,16 @@
 #tags {
-  display: inline;
+  float: left;
+  border: solid 2pt #EEF;
+  border-radius: 1em;
+  background-color: #FBFBFF;
+
+  width: 180px;
+  max-height: 400px;
+  overflow-y: auto;
 
   .tag,.new_tag {
-    display: inline-block;
+    display: block;
     margin: 0.2em;
-    border: solid 2pt #EEF;
     padding: 0 0.7em;
-    border-radius: 1em;
-    background-color: #FBFBFF;
   }
 }

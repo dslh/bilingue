@@ -5,3 +5,6 @@ $.extend($.fn, {disable_during_ajax: ->
     $('input[type=text]',this).attr('disabled',null)
   )
 })
+
+window.checked_tags = ->
+  $('#tags .tag input[type=checkbox]:checked').map(-> $(this).val())

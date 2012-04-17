@@ -2,6 +2,8 @@ class Phrase < ActiveRecord::Base
   belongs_to :language
   validates :phrase, :language, :presence => true
 
+  default_scope :order => 'phrase ASC'
+
   attr_taggable :categories
 
   has_many :transforms
