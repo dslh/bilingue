@@ -1,7 +1,8 @@
 #tags
-  - RocketTag::Tag.all.each do |t|
+  - RocketTag::Tag.find(:all, :order => 'name ASC').each do |t|
     = render 'tags/listing', :tag => t
   - if form then
     = form_tag '/tags',
           :class => 'new_tag' do
       = text_field_tag 'tag[name]', '', :placeholder => 'new tag'
+
