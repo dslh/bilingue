@@ -26,7 +26,7 @@ class Phrase < ActiveRecord::Base
         translations.collect { |t| t.phrase }
     ]
   end
-
+  
   class CompositeCollection
     include Enumerable
 
@@ -114,6 +114,10 @@ class Phrase < ActiveRecord::Base
     def create! attributes = {}
       @first.create! attributes
     end
+    
+    def where *args
+      @first.where(*args) + @second.where(*args)
+    end
   end
 
   def all_transforms force_reload = false
@@ -135,6 +139,12 @@ class Phrase < ActiveRecord::Base
     inverse_transforms_singular_ids= []
   end
 
+  # Returns a matching translation or creates a new one.
+  def translation! phrase, language_id
+    translations.where({:phrase => phrase, :language_id => language_id}).first or
+    translations.create!({:phrase => phrase, :language_id => language_id})
+  end
+
   def translations force_reload = false
     CompositeCollection.new(transformations(force_reload),
                             inverse_transformations(force_reload))
@@ -154,3 +164,4 @@ class Phrase < ActiveRecord::Base
     inverse_transformations_singluar_ids= []
   end
 end
+

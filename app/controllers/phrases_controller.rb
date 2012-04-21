@@ -44,7 +44,16 @@ class PhrasesController < ApplicationController
     @phrase.categories = params[:tags]
 
     respond_to do |format|
-      if @phrase.save
+      existing = Phrase.where{{
+        :phrase => my{@phrase.phrase},
+        :language_id => my{@phrase.language_id}
+      }}
+      if not existing.empty?
+        @phrase = existing[0]
+        format.html { redirect_to @phrase, notice: 'Phrase already exists.' }
+        format.json { render json: @phrase, status: :accepted, location: @phrase }
+        format.js { render :partial => 'listing', :content_type => 'text/html', :locals => { :phrase => @phrase } }
+      elsif @phrase.save
         format.html { redirect_to @phrase, notice: 'Phrase was successfully created.' }
         format.json { render json: @phrase, status: :created, location: @phrase }
         format.js { render :partial => 'listing', :content_type => 'text/html', :locals => { :phrase => @phrase } }
@@ -88,3 +97,5 @@ class PhrasesController < ApplicationController
     end
   end
 end
+
+

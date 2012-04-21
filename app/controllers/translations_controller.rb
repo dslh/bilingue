@@ -24,8 +24,15 @@ class TranslationsController < ApplicationController
   # POST /phrases/1/translations
   # POST /phrases/1/translation.json
   def create
+    # Try not to duplicate anything here. If the translation already exists,
+    # ignore the request. If the translated phrase exists but isn't associated
+    # with the native phrase, create an association.
     @phrase = Phrase.find(params[:phrase_id])
-    @translation = @phrase.translations.create(params[:translation])
+    puts params[:translation].inspect
+    @translation = @phrase.translation!(
+      params[:translation]['phrase'],
+      params[:translation]['language_id']
+    )
     @translation.categories = params[:tags]
 
     respond_to do |format|
@@ -71,3 +78,4 @@ class TranslationsController < ApplicationController
     end
   end
 end
+
